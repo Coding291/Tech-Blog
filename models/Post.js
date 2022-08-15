@@ -16,8 +16,7 @@ class Post extends Model {
           'post_url',
           'title',
           'created_at',
-
-        ],
+         ],
         include: [
           {
             model: models.Comment,
