@@ -1,0 +1,14 @@
+<article class="border-solid border-slate-800 border-2 m-2">
+            <div class="bg-slate-800 text-white text-lg font-bold p-2 flex flex-row">
+                <div class="justify-left grow">
+                    {{post_title}}
+                </div>
+                <div class="justify-right">
+                    Posted by {{user.username}} on {{format_date created_at}}
+                </div>
+            </div>
+            <div class="bg-white p-2 whitespace-pre-line">{{post_text}}</div>
+            <div class="p-2">
+                <a href="/post/{{post_id}}">{{comments.length}} {{format_plural 'comment' comments.length }}</a>
+            </div>
+        </article>

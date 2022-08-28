@@ -6,4 +6,12 @@ const withAuth = (req, res, next) => {
 	}
 };
 
-module.exports = withAuth;
+const apiAuth = (req, res, next) => {
+    if (!req.session.user_id) {
+        res.status(401).json({ message: 'please log in!' });
+    } else {
+        next();
+    }
+};
+
+module.exports = { withAuth, apiAuth };

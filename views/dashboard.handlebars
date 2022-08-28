@@ -1,0 +1,44 @@
+<div class="w-128 border border-slate-800 m-8">
+    <div class="bg-slate-800 text-white p-4">New Post Form</div>
+
+    <form class="new-post-form">
+        <div class="flex flex-row p-4">
+            <div class="w-32"><label for="post-title">Title:</label></div>
+            <div class="w-full"><input type="text" id="post-title" class="border w-full p-1" /></div>
+        </div>
+        <div class="flex flex-row p-4">
+            <div class="w-32"><label for="post-text">Text:</label></div>
+            <div class="w-full"><textarea id="post-text" rows="4" class="border w-full p-1"></textarea></div>
+        </div>
+        <div class="flex flex-row p-4">
+            <div class="justify-left grow"></div>
+            <div class="justify-right"><button id="submit" class="bg-slate-900 hover:bg-slate-400 text-white px-3 py-2 rounded-md text-sm font-medium">Create</button></div>
+        </div>
+    </form>
+    </div>
+</div>
+
+{{#if posts.length}}
+<section>
+    <h2 class="mx-3 font-medium border-b-2 border-dotted border-slate-800">Your Posts</h2>
+    <ol class="mb-3">
+        {{#each posts as |post|}}
+        <li>
+            {{> post-info post}}
+            <a href="/dashboard/edit/{{post.post_id}}" class="bg-slate-900 hover:bg-slate-400 text-white px-3 py-2 rounded-md text-sm font-medium mx-6">Edit post</a>
+            
+        </li>
+        {{/each}}
+    </ol>
+</section>
+{{/if}}
+
+<script src="/javascript/add-post.js"></script>
+
+
+
+
+
+
+
+

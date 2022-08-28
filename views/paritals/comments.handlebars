@@ -1,0 +1,10 @@
+<div class="comments">
+        {{#each this}}
+        <section class="mx-3 my-3">
+            <div class="bg-sky-200 border-sky-200 p-2">
+                {{user.username}} on {{format_date created_at}}
+            </div>
+            <div class="bg-sky-100 p-2 whitespace-pre-line">{{comment_text}}</div>
+        </section>
+        {{/each}}
+    </div>

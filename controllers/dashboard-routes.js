@@ -1,9 +1,14 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
+const { withAuth } = require('../utils/auth');
 
-// Homepage, show all posts
-router.get('/', (req, res) => {
+// Get all posts for current logged in user, for the dashboard
+router.get('/', withAuth, (req, res) => {
     Post.findAll({
+        where: {
+            // use the ID from the session
+            user_id: req.session.user_id,
+        },
         attributes: ['post_id', 'post_title', 'post_text', 'created_at'],
         include: [
             {
@@ -27,13 +32,9 @@ router.get('/', (req, res) => {
         ],
     })
         .then((dbPostData) => {
-            // Serialize each element
+            // serlialize data before passing to template
             const posts = dbPostData.map((post) => post.get({ plain: true }));
-            // Render
-            res.render('homepage', {
-                posts,
-                loggedIn: req.session.loggedIn,
-            });
+            res.render('dashboard', { posts, loggedIn: true });
         })
         .catch((err) => {
             console.log(err);
@@ -41,26 +42,8 @@ router.get('/', (req, res) => {
         });
 });
 
-// Login page
-router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect('/');
-        return;
-    }
-    res.render('login');
-});
-
-// Signup page
-router.get('/signup', (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect('/');
-        return;
-    }
-    res.render('signup');
-});
-
-// Single post page
-router.get('/post/:id', (req, res) => {
+// Edit one post
+router.get('/edit/:id', withAuth, (req, res) => {
     Post.findOne({
         where: {
             post_id: req.params.id,
@@ -88,18 +71,23 @@ router.get('/post/:id', (req, res) => {
         ],
     })
         .then((dbPostData) => {
-            if (!dbPostData) {
-                res.status(404).json({ message: 'No post found with this id' });
-                return;
-            }
-            // Serialize the data
+            // serlialize data before passing to template
             const post = dbPostData.get({ plain: true });
+            res.render('edit-post', { post, loggedIn: true });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
-            // Pass data to template
-            res.render('single-post', {
-                post,
-                loggedIn: req.session.loggedIn,
-            });
+// Delete one post
+router.get('/delete/:id', withAuth, (req, res) => {
+    Post.destroy({
+        where: { post_id: req.params.id },
+    })
+        .then(() => {
+            res.redirect('/dashboard');
         })
         .catch((err) => {
             console.log(err);

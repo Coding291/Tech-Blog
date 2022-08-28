@@ -1,0 +1,24 @@
+<div class="w-128 border border-slate-800 m-8">
+    <div class="bg-slate-800 text-white p-4">Edit Post Form</div>
+
+    <form class="edit-post-form">
+        <div class="flex flex-row p-4">
+            <div class="w-32"><label for="post-title">Title:</label></div>
+            <div class="w-full"><input type="text" id="post-title" class="border w-full p-1" value="{{post.post_title}}" /></div>
+        </div>
+        <div class="flex flex-row p-4">
+            <div class="w-32"><label for="post-text">Text:</label></div>
+            <div class="w-full"><textarea id="post-text" rows="4" class="border w-full p-1">{{post.post_text}}</textarea></div>
+        </div>
+        <div class="flex flex-row p-4">
+            <div class="justify-left grow"></div>
+            <div class="justify-right">
+                <button id="submit" class="bg-slate-900 hover:bg-slate-400 text-white px-3 py-2 rounded-md text-sm font-medium">Save</button>
+                <button id="delete" class="bg-slate-900 hover:bg-slate-400 text-white px-3 py-2 rounded-md text-sm font-medium">Delete</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+<script src="/assets/js/edit-post.js"></script>
