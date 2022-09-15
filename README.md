@@ -39,8 +39,8 @@ Challenge this week is to build a CMS-style blog site similar to a Wordpress sit
 
 # Screenshots
 
-![Getting Started]()
-![Getting Started]()
+![Getting Started](./public/images/Screen%20Shot%202022-09-14%20at%202.45.31%20PM.png)
+![Getting Started](./public/images/Screen%20Shot%202022-09-14%20at%206.00.15%20PM.png)
 
 
 
